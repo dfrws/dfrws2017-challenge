@@ -1,0 +1,2 @@
+# dfrws2017-challenge
+The DFRWS 2017 challenge is about Internet of Things (IoT), defined generally to include network and Internet connected devices usually for the purpose of monitoring and automation tasks. Consumer-grade “Smart” devices are increasing in popularity and scope. These devices and the data they collect are potentially interesting for digital investigations, but also come with a number of new investigation challenges.
