@@ -1,0 +1,46 @@
+
+.PHONY: build elastic-start elastic-stop status clean realclean plaso-import
+
+DOCKER=/usr/bin/docker
+DOCKER_COMPOSE=/usr/bin/docker-compose
+ELASTIC_VERSION=5.2.1
+ELASTIC_IP?=172.17.0.1
+
+
+all: build elastic-start
+
+images: $(DOCKER)
+	sudo $(DOCKER) pull docker.elastic.co/elasticsearch/elasticsearch:$(ELASTIC_VERSION)
+	sudo $(DOCKER) pull docker.elastic.co/kibana/kibana:$(ELASTIC_VERSION)
+	sudo $(DOCKER) pull docker.elastic.co/logstash/logstash:$(ELASTIC_VERSION)
+	sudo $(DOCKER) pull log2timeline/plaso
+
+build: $(DOCKER)
+	sudo $(DOCKER) build -t iot-plaso:latest -f patched-plaso.dockerfile .
+
+elastic-start: $(DOCKER_COMPOSE)
+	sudo $(DOCKER_COMPOSE) create
+	sudo $(DOCKER_COMPOSE) start
+
+elastic-stop: $(DOCKER_COMPOSE)
+	sudo $(DOCKER_COMPOSE) stop
+
+status: $(DOCKER_COMPOSE)
+	sudo $(DOCKER_COMPOSE) ps
+
+clean: $(DOCKER)
+	sudo $(DOCKER) ps -aqf status=exited | xargs -r sudo $(DOCKER) rm
+
+realclean: clean
+	sudo $(DOCKER) volume rm docker_esdata1
+
+plaso-import: build
+	@echo Default elastic password is 'changeme'
+	sudo $(DOCKER) run -ti --rm -v /cases:/cases iot-plaso:latest psort -o elastic --raw_fields --index_name dfrws2018 --server $(ELASTIC_IP) --elastic_user elastic /cases/dfrws2018/events.plaso
+
+
+$(DOCKER):
+	sudo apt-get install -y docker
+
+$(DOCKER_COMPOSE):
+	sudo apt-get install -y docker-compose

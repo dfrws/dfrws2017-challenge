@@ -1,0 +1,47 @@
+syntax = "proto2";
+// NOTE: some fields are misnamed or unhandled at this point
+// When using C++ unassigned fields should be extracted automatically...
+// not true for Python yet...
+
+package onhub_diagnostic;
+
+message report {
+   required string build  = 1;
+
+  message catFile {
+     required string path = 1;
+     required bytes contents = 2;
+  }
+
+  message mount {
+     required string path = 1;
+     required uint32 size = 2;
+  }
+  
+  message commandRan {
+     required string command = 1;
+     required bytes stdout  = 2;
+     required int32 retval   = 3;
+  }
+
+  message unknownNestedMessage {
+    repeated uint32 num = 6;
+  }
+
+  message unknownMessage {
+     required string hex = 1;
+     required bytes wat = 2;
+  }
+  
+  repeated catFile files = 2;
+  required string osname = 3;
+  required string naString1 = 4;
+  required bytes naBytes1 = 5;
+  repeated mount mounts = 7;
+  required bytes naConfig1 = 8;
+  repeated commandRan commands = 9;
+  required bytes naConfig2 = 10;
+  required uint32 naInt1 = 11;
+  repeated unknownMessage umessages = 12;
+  required uint32 naInt2 = 13;
+}
