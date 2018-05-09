@@ -1,4 +1,4 @@
-
+# This makefile was originally submitted but has been replaced with an updated version
 .PHONY: build elastic-start elastic-stop status clean realclean plaso-import
 
 DOCKER=/usr/bin/docker
