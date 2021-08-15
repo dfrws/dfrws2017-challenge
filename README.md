@@ -10,7 +10,7 @@ This challenge is made possible by a grant from the Korea Institute for Advancem
 
 ## Details
 
-The background and information about the digital evidence collected can be found in (Challenge Details)[challenge_details.md], while a report from the scene including an interview with one of the suspects can be found in [IoT Forensic Challenge Case Details](IoT%20Forensic%20Challenge%20Case%20Details.pd)
+The background and information about the digital evidence collected can be found in [Challenge Details](challenge_details.md), while a report from the scene including an interview with one of the suspects can be found in [IoT Forensic Challenge Case Details](IoT%20Forensic%20Challenge%20Case%20Details.pd)
 
 ## CHALLENGE ORGANIZERS
 
